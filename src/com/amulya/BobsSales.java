@@ -1,68 +1,56 @@
 package com.amulya;
 
-import java.util.*;
+import java.util.Scanner;
 public class BobsSales
 {
-    public static double sales ;
-    public static double rate;
-    public static double commission;
-    public static double advance;
-    public static double pay;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the monthly sales : ");
+        double sales = sc.nextDouble();
 
-    public static Double commissionRate(Double sales){
+        double commissionRate=0.0;
+        if(sales>=0 &&sales < 10000)
+        {
+            commissionRate = 5.0;
+        }
+        else if(sales>=10000 && sales<15000)
+        {
+            commissionRate = 10.0;
+        }
+        else if(sales>=15000 && sales < 18000)
+        {
+            commissionRate = 12.0;
+        }
+        else if(sales>=18000 && sales < 22000)
+        {
+            commissionRate = 15.0;
+        }
+        else if(sales >=22000 )
+        {
+            commissionRate = 16.0;
+        }
+        else
+        {
+            System.out.println("Sales cannot be negative!\nExiting...........");
+            System.exit(1);
+        }
+        System.out.print("Enter the advanced pay : ");
+        double advance = sc.nextDouble();
+        double commission = commissionRate * sales / 100;
+        double grossPay = commission - advance;
+        System.out.println("Commission according to sales : $"+commission);
+        if(grossPay > 0)
+        {
+            System.out.println("At the month end, you receive a check of $"+grossPay+" from the company.");
+        }
+        else if(grossPay<0)
+        {
+            System.out.println("At the month end, you owe $"+(grossPay*-1)+" to the company.");
+        }
+        else{
+            System.out.println("No Pay Check/ No Debt");
+        }
 
-        if(sales<10000) {
-            commission = (sales/100)*5 ;
-        }
-        else if ((sales<=14999) && (sales>=10000)) {
-            commission = (sales/100)*10 ;
-        }
-        else if ((sales<=17999) && (sales>=15000)) {
-            commission = (sales/100)*12 ;
-        }
-        else if ((sales<=21999) && (sales>=18000)) {
-            commission = (sales/100)*15 ;
-        }
-        else if(sales>=22000) {
-            commission = (sales/100)*16 ;
-        }
-        return commission;
-    }
-    public static void salesPersonsPay(double advance,double rate)
-    {
-        if(advance<0 || advance>1500) {
-            System.out.println("Advance pay is not more than $1500 and not less than $0");
-        }else {
-            pay = rate - advance;
-            if(pay<0) {
-                System.out.println("salesperson must pay $"+ String.format("%.2f", -pay)+" back");
-            }else {
-                System.out.println("salesperson earned amount $"+String.format("%.2f", pay));
-            }
-        }
-    }
-
-
-    public static void main(String[] args)
-    {
-        Scanner s = new Scanner(System.in);
-        System.out.print("Enter the sales persons monthly sales :");
-        try {
-            sales = Double.parseDouble(s.nextLine());
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.print("Enter the amount of advance pay :");
-        try {
-            advance = Double.parseDouble(s.nextLine());
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            s.close();
-        }
-        Double rate = commissionRate(sales);
-        salesPersonsPay(advance, rate);
     }
 
 }
